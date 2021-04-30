@@ -12,4 +12,4 @@ send your notifications via webhook to your discord!
 4. restart icinga2
 
 ## Troubleshooting
-at first you should check your icinga config by ```bash icinga2 daemon -C```. if everything is alright then you have to go deeper... enable debug logging with ```bash icinga2 feature enable debuglog```. After that check your log with ```bash tail -f /var/log/icinga2/debug.log``` and send a custom notification to see what´s going on. 
+at first you should check your icinga config by ```icinga2 daemon -C```. if everything is alright then you have to go deeper... enable debug logging with ```icinga2 feature enable debuglog```. After that check your log with ```tail -f /var/log/icinga2/debug.log``` and send a custom notification to see what´s going on. 
