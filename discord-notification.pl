@@ -15,6 +15,7 @@ my $emoji_dict = {
   'RECOVERY' => ':white_check_mark:',
   'WARNING' => ':warning:',
   'DOWN' => ':rotating_light:',
+  'UP' => ':white_check_mark:',
   'PROBLEM' => ':rotating_light:',
   'CRITICAL' => ':rotating_light:',
   'UNKNOWN' => ':grey_question:',
