@@ -5,9 +5,17 @@ use warnings;
 use JSON::XS;
 #use Data::Dumper;
 use REST::Client;
+use utf8;
+
+
+for (my $i = 0; $i <= $#ARGV; $i++) {
+  utf8::decode($ARGV[$i]);
+}
 
 my %icinga_data = @ARGV;
-my $rest = REST::Client->new(timeout => 5);
+my $rest = REST::Client->new(
+          timeout => 5
+);
 $rest->addHeader('Content-Type', 'application/json');
 
 my $emoji_dict = {
@@ -24,11 +32,13 @@ my $emoji_dict = {
   'CUSTOM' => ':paintbrush:'
 };
 
+
 if ($icinga_data{notification_type} eq "CUSTOM") {
   custom();
 } else {
   host_or_service();
 }
+
 
 sub custom {
   my $emote = $emoji_dict->{$icinga_data{notification_type}};
@@ -50,6 +60,7 @@ sub host_or_service {
     . "Service **$icinga_data{service_name}** on host **$icinga_data{host_name}** "
     . "changed to **$icinga_data{service_state}**!\n"
     . "```$icinga_data{service_output}```";
+    send_msg($notification);
   } else {
     my $emote = $emoji_dict->{$icinga_data{host_state}};
     $notification = "$emote "
@@ -57,8 +68,8 @@ sub host_or_service {
     . "Host **$icinga_data{host_name}** "
     . "changed to **$icinga_data{host_state}**!\n"
     . "```$icinga_data{host_output}```";
-  }
   send_msg($notification);
+  }
 }
 
 sub send_msg {
